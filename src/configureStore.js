@@ -19,12 +19,7 @@ const logger = store => (next) => {
   /* eslint-enable no-console */
 };
 
-const promise = store => next => (action) => { // eslint-disable-line no-unused-vars
-  if (typeof action.then === 'function') {
-    return action.then(next);
-  }
-  return next(action);
-};
+const thunk = store => next => action => (typeof action === 'function' ? action(next, store.getState) : next(action));
 
 const wrapDispatchWithMiddlewares = (store, middlewares) => middlewares.slice().reverse()
   .forEach((middleware) => {
@@ -33,7 +28,7 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => middlewares.slice().
 
 const configureStore = () => {
   const store = createStore(todoApp);
-  const middlewares = [promise];
+  const middlewares = [thunk];
 
   if (process.env.NODE_ENV !== 'production') {
     middlewares.push(logger);

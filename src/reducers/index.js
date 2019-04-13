@@ -24,3 +24,8 @@ export const getIsFetching = (state, filter) => {
   const { isFetching } = state.listByFilter[filter];
   return isFetching;
 };
+
+export const getErrorMessage = (state, filter) => {
+  const { errorMessage } = state.listByFilter[filter];
+  return errorMessage;
+};
