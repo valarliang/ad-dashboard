@@ -5,6 +5,16 @@ const byId = (state = {}, action) => {
         nextState[todo.id] = todo;
         return nextState;
       }, { ...state });
+    case 'ADD_TODO_SUCCESS':
+      return ({
+        ...state,
+        [action.response.id]: action.response,
+      });
+    case 'TOGGLE_TODO_SUCCESS':
+      return ({
+        ...state,
+        [action.response.id]: action.response,
+      });
     default:
       return state;
   }
